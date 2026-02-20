@@ -1,0 +1,32 @@
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+$('[data-toggle="tooltip"]').tooltip();
+
+                                        Clone Books
+insert into books (id, book_name, book_author, book_isbn, book_year, book_publishing, book_page_count, book_copy_count, book_type, book_for_home, book_lang, book_category, book_science_type, book_campus_id, book_added_admin_id, book_university_id, book_image, book_file, created_at, updated_at)
+select id, book_name, book_author, book_isbn, book_year, book_publishing, book_page_count, book_copy_count, book_page_type, book_for_home, book_lang, book_type, book_science_type, book_campus_id, book_added_admin_id,  book_university_id,book_picture,book_file,created_at, updated_at from old_db.books where old_db.books.book_name!='';
+
+                                Nomda Nusxada for Each Campus
+select a_r_m_s.id as 'campus_id', a_r_m_s.campus_name, count(books.id) as 'book_nomda' ,SUM(books.book_copy_count) as 'book_nusxada' from libsense_uz.a_r_m_s, libsense_uz.books
+where a_r_m_s.id = books.book_campus_id and book_type = 1 AND book_university_id = 13 GROUP BY campus_id;
+
+                                    Add column into EBooks
+ALTER TABLE libsense_uz.e_books add column is_book_primary varchar(255) default 2;
+
+////////////////////////////////////// DB modify 07_18_2021 ///////////////////////
+alter table users
+add hashed_user_id varchar(255) null;
+///////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////// Book Category Counter ///////////////////////////////
+SELECT COUNT(id) AS 'tm_soni' FROM libsense_uz.books WHERE book_file != '' AND book_category = 1 AND book_university_id = 13;
+///////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////// Abo/OZ  status ///////////////////////////////////
+alter table abonements add ab_status smallint;
+alter table oquv_zalis add oz_status smallint;
+/////////////////////////////////////////////////////////////////////////////////////

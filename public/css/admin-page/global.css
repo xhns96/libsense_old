@@ -1,0 +1,165 @@
+@font-face {
+    font-family: lemonJelly;
+    src: url(../../fonts/book-page/Lemon_Jelly.ttf) format('truetype');
+}
+/*@font-face {*/
+/*    font-family: backervaL;*/
+/*    src: url(../../fonts/book-page/Baskerval.otf) format('truetype');*/
+/*}*/
+/*@font-face {*/
+/*    font-family: Martel;*/
+/*    src: url(../../fonts/book-page/Martel-Bold.ttf);*/
+/*}*/
+.lemonJelly{
+    font-family: lemonJelly, sans-serif;
+    font-size: 3em;
+}
+/*.backervaL{*/
+/*    font-family: backervaL, serif;*/
+/*}*/
+/*.martelBold{*/
+/*    font-family: Martel, serif;*/
+/*}*/
+.al {
+    text-align: left;
+}
+.ac {
+    text-align: center;
+}
+.ar {
+    text-align: right;
+}
+.s35{
+    min-width: 35px;
+    max-width: 35px;
+    min-height: 35px;
+    max-height: 35px;
+}
+.s45{
+    min-width: 45px;
+    max-width: 45px;
+    min-height: 45px;
+    max-height: 45px;
+}
+.s70{
+    min-width: 70px;
+    max-width: 70px;
+    min-height: 70px;
+    max-height: 70px;
+}
+.s125{
+    min-width: 125px;
+    max-width: 125px;
+    min-height: 125px;
+    max-height: 125px;
+}
+.s200{
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 200px;
+    max-height: 200px;
+}
+.s400{
+    min-width: 400px;
+    max-width: 400px;
+    min-height: 400px;
+    max-height: 400px;
+}
+.s600{
+    min-width: 600px;
+    max-width: 600px;
+    min-height: 600px;
+    max-height: 600px;
+}
+.s45B{
+    min-width: 170px;
+    max-width: 170px;
+    min-height: 35px;
+    max-height: 35px;
+}
+.borderRadius20:focus{
+    border: none;
+}
+.borderRadius20{
+    border-radius: 20px;
+}
+.boxShadow:focus{
+    box-shadow: 1px 1px 10px #3e59e3;
+}
+.bookBoxShadow:focus{
+    box-shadow: 1px 1px 10px #f55426;
+}
+
+.inputPR20{
+    padding-right: 20px;
+}
+.myNav{
+    border-radius: 50px;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 20px;
+    box-shadow: 1px 1px 5px #9eabc0;
+}
+.navLinks{
+    padding-top: 12px;
+    padding-bottom: 4px;
+    font-size: 1.1rem;
+    font-weight: bold
+}
+.navLinksImg{
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 1.1rem;
+    font-weight: bold
+}
+.showRightBorder{
+    border-right: 1px solid #9eabc0;
+}
+.profileCard{
+    padding: 20px;
+    box-shadow: 1px 1px 5px #9eabc0;
+}
+
+.cursorPointer{
+    cursor: pointer;
+    font-weight: bold;
+}
+.myPointer{
+    font-weight: bold;
+    text-align: center;
+}
+#fan-soxalari div div a:hover{
+    box-shadow: 1px 1px 5px #9eabc0;
+
+}
+#accordion{
+    box-shadow: 1px 1px 5px #9eabc0;
+}
+.bookCardStyle{
+    min-width: 255px;
+    max-width: 255px;
+    min-height: 388px;
+    max-height: 388px;
+}
+.bookCardStyle img {
+    min-width: 190px;
+    max-width: 190px;
+    min-height: 260px;
+    max-height: 260px;
+    margin-top: -50px;
+}
+.card-body-book{
+    height: 40px;
+    overflow-y: auto;
+}
+#book-name-search-div .empty-message {
+    padding: 5px 10px;
+    text-align: center;
+}
+.fw600 {
+    font-weight: 600;
+}
+.scrollAble{
+    overflow-y: scroll;
+}
+

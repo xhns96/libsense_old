@@ -1,0 +1,28 @@
+.card-user {
+    border-radius: 10px;
+}
+.card-body {
+    text-align: center;
+}
+.card-footer {
+    border-radius: 0 0 10px 10px;
+}
+.profile-top-div {
+    border-radius: 10px 10px 0 0;
+    width: 100%;
+}
+.profile-top-image {
+
+    border-radius: 10px 10px 0 0;
+    width: 100%;
+    height: 130px;
+}
+.profile-image {
+    margin-top: -75px;
+    border: 3px solid white;
+    border-radius: 50%;
+    min-width: 150px;
+    max-width: 150px;
+    min-height: 150px;
+    max-height: 150px;
+}

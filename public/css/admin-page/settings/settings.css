@@ -1,0 +1,19 @@
+#univer-logo-div {
+    text-align: center;
+}
+#univer-logo-div img {
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 200px;
+    max-height: 200px;
+}
+.weight-bold {
+    font-weight: bold;
+    cursor: pointer;
+}
+.weight-bold:hover {
+    text-shadow: 0 0 30px #5F76E8;
+}
+.center-style {
+    text-align: center;
+}

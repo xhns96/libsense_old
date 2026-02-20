@@ -1,0 +1,60 @@
+.bs-example {
+    font-family: sans-serif;
+    position: relative;
+    /*margin: 100px;*/
+}
+.typeahead, .tt-query, .tt-hint {
+    /*border: 2px solid #a865e1;*/
+    /*border-radius: 8px;*/
+    /*font-size: 14px; !* Set input font size *!*/
+    /*height: 30px;*/
+    /*line-height: 30px;*/
+    /*outline: medium none;*/
+    /*padding: 18px 20px;*/
+    /*width: 397px;*/
+}
+.typeahead {
+    background-color: #FFFFFF;
+}
+.typeahead:focus {
+    /*box-shadow: 5px 5px 10px silver;*/
+}
+.tt-query {
+    /*box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;*/
+}
+.tt-hint {
+    color: #999999;
+}
+.tt-menu {
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 12px;
+    padding: 8px 0;
+    width: 422px;
+}
+.tt-suggestion {
+    font-size: 14px;  /* Set suggestion dropdown font size */
+    padding: 3px 20px;
+}
+.tt-suggestion:hover {
+    cursor: pointer;
+    background-color: #41403f;
+    color: #FFFFFF;
+    transition: 0.3s;
+}
+
+.tt-suggestion p {
+    margin: 0;
+}
+
+/*#elemento {*/
+/*    transition: 1s;*/
+/*}*/
+/*#elemento:focus{*/
+/*    outline: none;*/
+/*    border-radius: 20px;*/
+/*    width: 422px;*/
+/*    box-shadow: 0 5px 8px #a865e1;*/
+/*}*/
