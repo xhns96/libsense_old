@@ -754,7 +754,96 @@ class AdminController extends Controller
         return response()->json(['answer' => 'success']);
     }
 
-    public function all_books()
+    public function all_books(Request $request)
+    {
+        // 1) First request: return Blade page (NO 20k rows rendered)
+        if (!$request->ajax()) {
+            return view('admin.all_books', [
+                'currentAdmin' => $this->currentAdmin(),
+                'allAdmins' => $this->allAdmins(),
+                'allCampuses' => $this->allCampuses(),
+            ]);
+        }
+
+        // 2) DataTables server-side request
+        $draw   = (int) $request->input('draw');
+        $start  = (int) $request->input('start', 0);
+        $length = (int) $request->input('length', 25);
+        $search = $request->input('search.value');
+
+        // Base query with joins (your style)
+        $baseQuery = Book::query()
+            ->join('a_r_m_s', 'books.book_campus_id', '=', 'a_r_m_s.id')
+            ->leftJoin('admins', 'books.book_added_admin_id', '=', 'admins.id')
+            ->select([
+                'books.id',
+                'books.book_name',
+                'books.book_author',
+                'books.book_year',
+                'books.book_added_admin_id',
+                'books.book_file',
+                'admins.name as admin_name',
+                'a_r_m_s.campus_name',
+            ]);
+
+        // Total count (no filter)
+        $recordsTotal = (clone $baseQuery)->count(DB::raw('distinct books.id'));
+
+        // Filter
+        if ($search) {
+            $baseQuery->where(function ($q) use ($search) {
+                $q->where('books.id', $search)
+                    ->orWhere('books.book_name', 'like', "%{$search}%")
+                    ->orWhere('books.book_author', 'like', "%{$search}%")
+                    ->orWhere('books.book_year', 'like', "%{$search}%")
+                    ->orWhere('a_r_m_s.campus_name', 'like', "%{$search}%")
+                    ->orWhere('admins.name', 'like', "%{$search}%");
+            });
+        }
+
+        $recordsFiltered = (clone $baseQuery)->count(DB::raw('distinct books.id'));
+
+        // Ordering (map DataTables column index -> DB column)
+        $orderColIndex = $request->input('order.0.column', 0);
+        $orderDir      = $request->input('order.0.dir', 'desc');
+
+        $columns = [
+            0 => 'books.id',
+            1 => 'books.book_name',
+            2 => 'books.book_author',
+            3 => 'books.book_year',
+            4 => 'a_r_m_s.campus_name',
+            5 => 'admins.name',
+        ];
+
+        $orderCol = $columns[$orderColIndex] ?? 'books.id';
+        $baseQuery->orderBy($orderCol, $orderDir);
+
+        // Paging
+        $rows = $baseQuery->skip($start)->take($length)->get();
+
+        // Data for DataTables
+        $data = $rows->map(function ($r) {
+            return [
+                'id' => $r->id,
+                'book_name' => $r->book_name,
+                'book_author' => $r->book_author,
+                'book_year' => $r->book_year,
+                'campus_name' => $r->campus_name,
+                'admin_name' => empty($r->book_added_admin_id) ? 'ARM hodimlari' : $r->admin_name,
+                'has_file' => !empty($r->book_file),
+            ];
+        });
+
+        return response()->json([
+            'draw' => $draw,
+            'recordsTotal' => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            'data' => $data,
+        ]);
+    }
+
+    public function all_books_old()
     {
         $allBooks = Book::join('a_r_m_s', 'books.book_campus_id', '=', 'a_r_m_s.id')
             ->leftJoin('admins', 'books.book_added_admin_id', '=', 'admins.id')
@@ -1592,24 +1681,24 @@ class AdminController extends Controller
                 $AllUser = User::where('user_type', 'student')
                     ->where('user_course_name', $request->level)
                     ->get();
-        
+
                 if ($AllUser) {
                     foreach ($AllUser as $index => $currentUser) {
                         // Добавляем каждого студента в очередь с задержкой, чтобы избежать превышения лимита
                         $delay = intval($index / 10); // Задержка для каждого десятого запроса (10 запросов в секунду)
                         \App\Jobs\UpdateStudentDataJob::dispatch($currentUser)->delay(now()->addSeconds($delay));
                     }
-        
+
                     return response()->json(['answer' => 'success', 'message' => 'Синхронизация студентов началась.']);
                 }
             }
-        
+
             if ($request->user_type == "teacher") {
                 $url = 'https://student.andmiedu.uz/rest/v1/data/employee-list?type=teacher&search=' . $request->student_id_number;
                 $response = Http::withToken('UHi4-DZ7gIZb3tCfitdWrt4rzqQmNrlU')->get($url)->json();
                 return response()->json(['answer' => 'success', 'student' => $response, 'user_type' => $request->user_type]);
             }
-        
+
             if ($request->user_type == "employee") {
                 $url = 'https://student.andmiedu.uz/rest/v1/data/employee-list?type=employee&search=' . $request->student_id_number;
                 $response = Http::withToken('UHi4-DZ7gIZb3tCfitdWrt4rzqQmNrlU')->get($url)->json();
